@@ -7,7 +7,7 @@ import Button from '../UI/Button';
 const InputForm = (props) => {
   const [userName, setUserName] = useState("");
   const [userAge, setUserAge] = useState("");
-  const [error, setError] = useState();
+  const [error, setError] = useState(null);
   const addUserName = event => {
     setUserName(event.target.value);
   };
@@ -16,14 +16,14 @@ const InputForm = (props) => {
   };
   const submitHandler = (event) => {
     event.preventDefault();
-    if(userName.trim().length <= 0 || userAge.trim().length <= 0){
+    if (userName.trim().length <= 0 || userAge.trim().length <= 0) {
       setError({
         title: 'Invalid input',
         message: 'Please enter a valid user name and age (non-empty values).',
       });
       return;
     }
-    if(+userAge <= 0){
+    if (+userAge <= 0) {
       setError({
         title: 'Invalid age',
         message: 'Please enter a valid user age (non-negative value).',
@@ -40,14 +40,14 @@ const InputForm = (props) => {
 
   return (
     <>
-    {error && <ErrorModel title={error.title} message={error.message} onErrorHandler={setError}/>}
-    <form onSubmit={submitHandler} className='z-0'>
-    <Card>
-        <FormInputBox title="Username" value={userName} type="text" onChange={addUserName}/>
-        <FormInputBox title="Age (Years)" value={userAge} type="number" onChange={addUserAge}/>
-        <Button type="submit">Add User</Button>
-    </Card>
-    </form>
+      {error && <ErrorModel title={error.title} message={error.message} onErrorHandler={setError} />}
+      <form onSubmit={submitHandler} className='z-0'>
+        <Card>
+          <FormInputBox title="Username" value={userName} type="text" onChange={addUserName} />
+          <FormInputBox title="Age (Years)" value={userAge} type="number" onChange={addUserAge} />
+          <Button type="submit">Add User</Button>
+        </Card>
+      </form>
     </>
   )
 }

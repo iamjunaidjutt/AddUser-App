@@ -4,7 +4,7 @@ import Card from '../UI/Card';
 
 const ErrorModel = (props) => {
   const errorHandler = () => {
-    props.onErrorHandler();
+    props.onErrorHandler(null);
   };
   return (
     <>
