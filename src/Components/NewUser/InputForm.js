@@ -42,7 +42,7 @@ const InputForm = (props) => {
     <>
       {error && <ErrorModel title={error.title} message={error.message} onErrorHandler={setError} />}
       <form onSubmit={submitHandler} className='z-0'>
-        <Card>
+        <Card className={error && 'opacity-50'}>
           <FormInputBox title="Username" value={userName} type="text" onChange={addUserName} />
           <FormInputBox title="Age (Years)" value={userAge} type="number" onChange={addUserAge} />
           <Button type="submit">Add User</Button>
