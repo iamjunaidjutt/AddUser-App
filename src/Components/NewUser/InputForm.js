@@ -7,7 +7,7 @@ import Button from '../UI/Button';
 const InputForm = (props) => {
   const [userName, setUserName] = useState("");
   const [userAge, setUserAge] = useState("");
-  const [isValid, setIsValid] = useState(true);
+  const [error, setError] = useState();
   const addUserName = event => {
     setUserName(event.target.value);
   };
@@ -16,27 +16,31 @@ const InputForm = (props) => {
   };
   const submitHandler = (event) => {
     event.preventDefault();
-    if(userName.trim().length <= 0){
-      setIsValid(false);
-      return;
-    }
-    if(userAge.trim().length <= 0 || +userAge <= 0){
-      setIsValid(false);
-      return;
-    }
-    if(isValid){
-      props.onAddUser({
-        userName: userName,
-        userAge: userAge
+    if(userName.trim().length <= 0 || userAge.trim().length <= 0){
+      setError({
+        title: 'Invalid input',
+        message: 'Please enter a valid user name and age (non-empty values).',
       });
-      setUserName("");
-      setUserAge("");
+      return;
     }
+    if(+userAge <= 0){
+      setError({
+        title: 'Invalid age',
+        message: 'Please enter a valid user age (non-negative value).',
+      });
+      return;
+    }
+    props.onAddUser({
+      userName: userName,
+      userAge: userAge
+    });
+    setUserName("");
+    setUserAge("");
   };
 
   return (
-    <> 
-    <ErrorModel title={"Invalid Input"} message={"Please correct it"}/>
+    <>
+    {error && <ErrorModel title={error.title} message={error.message} onErrorHandler={setError}/>}
     <form onSubmit={submitHandler} className='z-0'>
     <Card>
         <FormInputBox title="Username" value={userName} type="text" onChange={addUserName}/>
