@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	html {
+		@apply bg-[#1f1f1f] m-auto w-1/2;
+	}
+}
